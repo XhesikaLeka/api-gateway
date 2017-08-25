@@ -4,7 +4,9 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                def exists = fileExists 'api-gateway'
+                step('Check if exists') {
+                    def exists = fileExists 'api-gateway'   
+                }
                 // if (!exists) {
                 //     echo 'Dir does not exists! Creating dir ...'
                 //     new File('api-gateway').mkdir();

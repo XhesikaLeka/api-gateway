@@ -4,7 +4,8 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                echo 'OK'
+                git 'https://github.com/xhulioxole/api-gateway.git'
+                echo 'Success'
             }
         }
     }

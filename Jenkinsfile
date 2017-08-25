@@ -4,6 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
+                sh 'pwd'
                 script {
                     def exists = fileExists 'api-gateway'   
                     if (!exists) {

@@ -3,7 +3,7 @@ pipeline {
 
     stages {
         stage('Checkout') {
-            steps {
+            // steps {
                 def exists = fileExists 'api-gateway'
                 if (!exists) {
                     echo 'Dir does not exists! Creating dir ...'
@@ -14,7 +14,7 @@ pipeline {
                     git 'https://github.com/xhulioxole/api-gateway.git'
                     echo 'Success'
                 }
-            }
+            // }
         }
     }
 }

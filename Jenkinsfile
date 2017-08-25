@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                step('Check if exists') {
+                step {
                     def exists = fileExists 'api-gateway'   
                 }
                 // if (!exists) {

@@ -4,15 +4,21 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                script {
-                    echo 'Success'
-                    // def exists = fileExists 'api-gateway'   
-                    // if (!exists) {
-                    //     echo 'Dir does not exists! Creating dir ...'
-                    //     new File('api-gateway').mkdir();
-                    //     echo 'Dir api-gateway created!'
-                    // }
-                }
+                echo 'Checkout-ing project'
+                git 'https://github.com/xhulioxole/api-gateway.git'
+                echo 'Checkout Success!'
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'Building artifact...'
+                sh 'mvn install'
+                echo 'Success'
+            }
+        }
+        stage('Docker') {
+            steps {
+                sh 'sudo docker ps -a'
             }
         }
     }

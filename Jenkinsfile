@@ -9,16 +9,23 @@ pipeline {
                 echo 'Checkout Success!'
             }
         }
-        stage('Build') {
+        stage('Build Artifact') {
             steps {
                 echo 'Building artifact...'
                 sh 'mvn install'
                 echo 'Success'
             }
         }
-        stage('Docker') {
+        stage('Create Docker Image') {
             steps {
-                sh 'sudo docker ps -a'
+                sh 'docker build -t api_gateway_image .'
+            }
+        }
+        stage('Run Container') {
+            steps {
+                sh 'docker stop api_gateway'
+                sh 'docker rm api_gateway'
+                sh 'docker run -d -p 8080:8080 --name api_gateway api_gateway_image'
             }
         }
     }

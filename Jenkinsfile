@@ -1,6 +1,5 @@
 pipeline {
     agent any
-
     stages {
         stage('Checkout') {
             steps {
@@ -16,6 +15,22 @@ pipeline {
                 echo 'Success'
             }
         }
+ 
+        stage('Deploy to Nexus') {
+            steps {
+                script {
+                    env.artifactVersion = readFile('version.txt').trim()
+                }
+                nexusPublisher nexusInstanceId: 'nexusLocal', nexusRepositoryId: 'releases', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: "target/apigateway-${env.artifactVersion}.jar"]], mavenCoordinate: [artifactId: 'apigateway', groupId: 'apigateway', packaging: 'jar', version: "${env.artifactVersion}"]]]
+            }
+        }
+
+        stage('Create artifact copy') {
+            steps {
+                sh 'cp target/apigateway-*.jar target/apigateway-RELEASE.jar'
+            }
+        }
+        
         stage('Create Docker Image') {
             steps {
                 sh 'docker build -t api_gateway_image .'

@@ -1,13 +1,13 @@
 pipeline {
     agent any
     stages {
-        stage('Checkout') {
+        /*stage('Checkout') {
             steps {
                 echo 'Checkout-ing project'
                 git 'https://github.com/xhulioxole/api-gateway.git'
                 echo 'Checkout Success!'
             }
-        }
+        }*/
         stage('Build Artifact') {
             steps {
                 echo 'Building artifact...'

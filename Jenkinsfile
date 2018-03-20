@@ -16,14 +16,14 @@ pipeline {
             }
         }
  
-        stage('Deploy to Nexus') {
+        /*stage('Deploy to Nexus') {
             steps {
                 script {
                     env.artifactVersion = readFile('version.txt').trim()
                 }
                 nexusPublisher nexusInstanceId: 'nexusLocal', nexusRepositoryId: 'releases', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: "target/apigateway-${env.artifactVersion}.jar"]], mavenCoordinate: [artifactId: 'apigateway', groupId: 'apigateway', packaging: 'jar', version: "${env.artifactVersion}"]]]
             }
-        }
+        }*/
 
         stage('Create artifact copy') {
             steps {
@@ -40,7 +40,7 @@ pipeline {
             steps {
                 sh 'docker stop api_gateway'
                 sh 'docker rm api_gateway'
-                sh 'docker run -d -p 8080:8080 --link config_service:config_service --name api_gateway api_gateway_image'
+                sh 'docker run -d -p 8080:8080 --net="host" --name api_gateway api_gateway_image'
             }
         }
     }

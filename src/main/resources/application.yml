@@ -1,11 +1,3 @@
-zuul:
-  routes:
-    fb:
-      path: /fb/**
-      url: http://facebook.com
-    github:
-      path: /g/**
-      url: http://github.com
 ribbon:
   eureka:
-    enabled: true
+    enabled: false

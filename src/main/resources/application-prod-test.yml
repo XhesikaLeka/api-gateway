@@ -1,0 +1,13 @@
+#zuul:
+#  routes:
+#    instances:
+#      path: /fb1/**
+#      serviceId: instances
+##      url: http://facebook.com
+#    github:
+#      path: /g/**
+#      url: http://github.com
+#          
+#instances:
+#  ribbon:
+#    listOfServers: facebook.com, github.com
